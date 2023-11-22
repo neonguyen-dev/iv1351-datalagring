@@ -1,31 +1,9 @@
-CREATE TABLE Ensemble (
- id INT NOT NULL
-);
-
-ALTER TABLE Ensemble ADD CONSTRAINT PK_Ensemble PRIMARY KEY (id);
-
-
 CREATE TABLE genre (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  genre_name VARCHAR(500) NOT NULL
 );
 
 ALTER TABLE genre ADD CONSTRAINT PK_genre PRIMARY KEY (id);
-
-
-CREATE TABLE Group (
-);
-
-
-CREATE TABLE Individual (
- id INT NOT NULL
-);
-
-ALTER TABLE Individual ADD CONSTRAINT PK_Individual PRIMARY KEY (id);
-
-
-CREATE TABLE InstructorPayment (
-);
 
 
 CREATE TABLE instrument_type (
@@ -55,16 +33,12 @@ CREATE TABLE pricing_scheme (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  skill_level_price VARCHAR(500) NOT NULL,
  type_of_lesson_price VARCHAR(500) NOT NULL,
- discount DECIMAL(0,2),
+ discount DECIMAL(1,2),
  student_pay VARCHAR(500) NOT NULL,
  instructor_salary VARCHAR(500) NOT NULL
 );
 
 ALTER TABLE pricing_scheme ADD CONSTRAINT PK_pricing_scheme PRIMARY KEY (id);
-
-
-CREATE TABLE StudentPayment (
-);
 
 
 CREATE TABLE contact_person (
@@ -115,8 +89,8 @@ ALTER TABLE lesson ADD CONSTRAINT PK_lesson PRIMARY KEY (id);
 CREATE TABLE schedule (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  instructor_id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
- from TIMESTAMP(10),
- to TIMESTAMP(10)
+ available_from TIMESTAMP(10),
+ available_to TIMESTAMP(10)
 );
 
 ALTER TABLE schedule ADD CONSTRAINT PK_schedule PRIMARY KEY (id,instructor_id);
@@ -126,7 +100,6 @@ CREATE TABLE student (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  person_id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  student_id VARCHAR(500) NOT NULL,
- sibling_id INT GENERATED ALWAYS AS IDENTITY,
  contact_person_id INT GENERATED ALWAYS AS IDENTITY NOT NULL
 );
 
@@ -162,6 +135,14 @@ CREATE TABLE rental (
 ALTER TABLE rental ADD CONSTRAINT PK_rental PRIMARY KEY (id);
 
 
+CREATE TABLE sibling (
+ student_id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
+ sibling_id INT GENERATED ALWAYS AS IDENTITY NOT NULL
+);
+
+ALTER TABLE sibling ADD CONSTRAINT PK_sibling PRIMARY KEY (student_id,sibling_id);
+
+
 ALTER TABLE contact_person ADD CONSTRAINT FK_contact_person_0 FOREIGN KEY (person_id) REFERENCES person (id);
 
 
@@ -181,8 +162,7 @@ ALTER TABLE schedule ADD CONSTRAINT FK_schedule_0 FOREIGN KEY (instructor_id) RE
 
 
 ALTER TABLE student ADD CONSTRAINT FK_student_0 FOREIGN KEY (person_id) REFERENCES person (id);
-ALTER TABLE student ADD CONSTRAINT FK_student_1 FOREIGN KEY (sibling_id) REFERENCES student (id);
-ALTER TABLE student ADD CONSTRAINT FK_student_2 FOREIGN KEY (contact_person_id) REFERENCES contact_person (id);
+ALTER TABLE student ADD CONSTRAINT FK_student_1 FOREIGN KEY (contact_person_id) REFERENCES contact_person (id);
 
 
 ALTER TABLE student_lesson ADD CONSTRAINT FK_student_lesson_0 FOREIGN KEY (student_id) REFERENCES student (id);
@@ -195,5 +175,9 @@ ALTER TABLE teaching_instruments ADD CONSTRAINT FK_teaching_instruments_1 FOREIG
 
 ALTER TABLE rental ADD CONSTRAINT FK_rental_0 FOREIGN KEY (instrument_id) REFERENCES instrument (id);
 ALTER TABLE rental ADD CONSTRAINT FK_rental_1 FOREIGN KEY (student_id) REFERENCES student (id);
+
+
+ALTER TABLE sibling ADD CONSTRAINT FK_sibling_0 FOREIGN KEY (student_id) REFERENCES student (id);
+ALTER TABLE sibling ADD CONSTRAINT FK_sibling_1 FOREIGN KEY (sibling_id) REFERENCES student (id);
 
 
