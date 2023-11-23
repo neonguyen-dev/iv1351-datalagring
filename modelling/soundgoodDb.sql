@@ -20,7 +20,7 @@ CREATE TABLE person (
  first_name VARCHAR(500) NOT NULL,
  last_name VARCHAR(500) NOT NULL,
  street VARCHAR(500) NOT NULL,
- zip VARCHAR(5) NOT NULL,
+ zip VARCHAR(10) NOT NULL,
  city VARCHAR(500) NOT NULL,
  phone_number VARCHAR(500) NOT NULL,
  email VARCHAR(500) NOT NULL
@@ -33,7 +33,7 @@ CREATE TABLE pricing_scheme (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  skill_level_price VARCHAR(500) NOT NULL,
  type_of_lesson_price VARCHAR(500) NOT NULL,
- discount DECIMAL(1,2),
+ discount DECIMAL(2),
  student_pay VARCHAR(500) NOT NULL,
  instructor_salary VARCHAR(500) NOT NULL
 );

@@ -90,7 +90,7 @@ VALUES
    ((SELECT id from student WHERE student_id='760059'), (SELECT id from lesson WHERE lesson_id='78342')), 
    ((SELECT id from student WHERE student_id='779991'), (SELECT id from lesson WHERE lesson_id='49805'));
 
-INSERT INTO teaching_instruments (instructor_id, instrument_id)
+INSERT INTO teaching_instruments (instructor_id, instrument_type_id)
 VALUES
    ((SELECT id from instructor WHERE employment_id='765609'), (SELECT id from instrument_type WHERE instrument_name='drums')), 
    ((SELECT id from instructor WHERE employment_id='760685'), (SELECT id from instrument_type WHERE instrument_name='guitar'));
