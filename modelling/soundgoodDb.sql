@@ -22,7 +22,7 @@ CREATE TABLE person (
  street VARCHAR(500) NOT NULL,
  zip VARCHAR(5) NOT NULL,
  city VARCHAR(500) NOT NULL,
- phone_number VARCHAR(10) NOT NULL,
+ phone_number VARCHAR(500) NOT NULL,
  email VARCHAR(500) NOT NULL
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE lesson (
  type_of_lesson INT NOT NULL,
  minimum VARCHAR(500),
  maximum VARCHAR(500),
- time_slot TIMESTAMP(10) NOT NULL,
+ time_slot TIMESTAMP(6) NOT NULL,
  genre_id INT,
  instructor_id INT NOT NULL,
  pricing_scheme_id INT
@@ -89,8 +89,8 @@ ALTER TABLE lesson ADD CONSTRAINT PK_lesson PRIMARY KEY (id);
 CREATE TABLE schedule (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  instructor_id INT NOT NULL,
- available_from TIMESTAMP(10),
- available_to TIMESTAMP(10)
+ available_from TIMESTAMP(6),
+ available_to TIMESTAMP(6)
 );
 
 ALTER TABLE schedule ADD CONSTRAINT PK_schedule PRIMARY KEY (id,instructor_id);
@@ -116,10 +116,10 @@ ALTER TABLE student_lesson ADD CONSTRAINT PK_student_lesson PRIMARY KEY (student
 
 CREATE TABLE teaching_instruments (
  instructor_id INT NOT NULL,
- instrument_id INT NOT NULL
+ instrument_type_id INT NOT NULL
 );
 
-ALTER TABLE teaching_instruments ADD CONSTRAINT PK_teaching_instruments PRIMARY KEY (instructor_id,instrument_id);
+ALTER TABLE teaching_instruments ADD CONSTRAINT PK_teaching_instruments PRIMARY KEY (instructor_id,instrument_type_id);
 
 
 CREATE TABLE rental (
@@ -170,7 +170,7 @@ ALTER TABLE student_lesson ADD CONSTRAINT FK_student_lesson_1 FOREIGN KEY (lesso
 
 
 ALTER TABLE teaching_instruments ADD CONSTRAINT FK_teaching_instruments_0 FOREIGN KEY (instructor_id) REFERENCES instructor (id);
-ALTER TABLE teaching_instruments ADD CONSTRAINT FK_teaching_instruments_1 FOREIGN KEY (instrument_id) REFERENCES instrument (id);
+ALTER TABLE teaching_instruments ADD CONSTRAINT FK_teaching_instruments_1 FOREIGN KEY (instrument_type_id) REFERENCES instrument_type (id);
 
 
 ALTER TABLE rental ADD CONSTRAINT FK_rental_0 FOREIGN KEY (instrument_id) REFERENCES instrument (id);
