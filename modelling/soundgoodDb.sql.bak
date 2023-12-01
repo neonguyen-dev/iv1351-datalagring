@@ -75,13 +75,12 @@ CREATE TABLE lesson (
  instrument_type_id INT NOT NULL,
  skill_level INT NOT NULL,
  type_of_lesson INT NOT NULL,
- minimum INT,
- maximum INT,
+ minimum VARCHAR(500),
+ maximum VARCHAR(500),
  time_slot TIMESTAMP(6) NOT NULL,
  genre_id INT,
  instructor_id INT NOT NULL,
- pricing_scheme_id INT,
- seats_taken INT
+ pricing_scheme_id INT
 );
 
 ALTER TABLE lesson ADD CONSTRAINT PK_lesson PRIMARY KEY (id);

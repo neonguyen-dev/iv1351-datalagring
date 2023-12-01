@@ -63,10 +63,12 @@ VALUES
 	((SELECT id from person WHERE person_number='19420307-8367'),'776141',(SELECT id from contact_person WHERE person_id=2)),
 	((SELECT id from person WHERE person_number='20180303-9856'),'777382',(SELECT id from contact_person WHERE person_id=8));
 
-INSERT INTO lesson (lesson_id, instrument_type_id, skill_level, type_of_lesson, minimum, maximum, time_slot, genre_id, instructor_id, pricing_scheme_id)
+INSERT INTO lesson (lesson_id, instrument_type_id, skill_level, type_of_lesson, minimum, maximum, time_slot, genre_id, instructor_id, pricing_scheme_id, seats_taken)
 VALUES
-    ('78342', (SELECT id from instrument_type WHERE instrument_name='guitar'), 1, 2, '5', '10', '2022-10-10 11:30:40', (SELECT id from genre WHERE genre_name='pop'), (SELECT id from instructor WHERE employment_id='760685'), NULL),
-    ('49805', (SELECT id from instrument_type WHERE instrument_name='drums'), 3, 1, NULL, NULL, '2023-12-10 10:50:45', (SELECT id from genre WHERE genre_name='rock'), (SELECT id from instructor WHERE employment_id='765609'), NULL);
+    ('78342', (SELECT id from instrument_type WHERE instrument_name='guitar'), 1, 2, 5, 10, '2022-10-10 11:30:40', (SELECT id from genre WHERE genre_name='pop'), (SELECT id from instructor WHERE employment_id='760685'), NULL, 3),
+    ('49805', (SELECT id from instrument_type WHERE instrument_name='drums'), 3, 1, NULL, NULL, '2023-12-10 10:50:45', (SELECT id from genre WHERE genre_name='rock'), (SELECT id from instructor WHERE employment_id='765609'), NULL, NULL),
+    ('58763', (SELECT id from instrument_type WHERE instrument_name='flute'), 2, 3, 5, 10, '2023-12-07 11:30:40', (SELECT id from genre WHERE genre_name='disco'), (SELECT id from instructor WHERE employment_id='760685'), NULL, 7),
+    ('02834', (SELECT id from instrument_type WHERE instrument_name='bongo-drums'), 2, 3, 2, 12, '2023-12-07 10:50:45', (SELECT id from genre WHERE genre_name='jazz'), (SELECT id from instructor WHERE employment_id='765609'), NULL, 5);
 
 INSERT INTO pricing_scheme (skill_level_price, type_of_lesson_price, discount, student_pay, instructor_salary)
 VALUES
