@@ -6,8 +6,6 @@ SUM(CASE WHEN type_of_lesson = 3 THEN 1 ELSE 0 END) AS Ensemble FROM lesson
 GROUP BY time_slot
 ORDER BY time_slot;
 
-
-
 SELECT 
     instructor_id AS Instructor_id,
     (SELECT first_name FROM person WHERE id=instructor_id) AS First_Name,
@@ -23,15 +21,7 @@ ORDER BY
     No_of_Lessons DESC
 
 SELECT 
-    CASE 
-        WHEN EXTRACT(DOW FROM time_slot) = 1 THEN 'Mon'
-        WHEN EXTRACT(DOW FROM time_slot) = 2 THEN 'Tue'
-        WHEN EXTRACT(DOW FROM time_slot) = 3 THEN 'Wed'
-        WHEN EXTRACT(DOW FROM time_slot) = 4 THEN 'Thu'
-        WHEN EXTRACT(DOW FROM time_slot) = 5 THEN 'Fri'
-        WHEN EXTRACT(DOW FROM time_slot) = 6 THEN 'Sat'
-        WHEN EXTRACT(DOW FROM time_slot) = 0 THEN 'Sun'
-    END AS Day,
+    TO_CHAR(time_slot, 'Dy') AS Day,
     (SELECT genre_name FROM genre WHERE id=genre_id) AS Genre,
     CASE 
         WHEN (maximum - seats_taken) = 0 THEN 'No Seats'
@@ -46,3 +36,20 @@ GROUP BY
     Day, Genre, maximum, seats_taken
 ORDER BY 
     Day;
+
+SELECT 
+    COALESCE(No_of_Siblings, 0) AS No_of_Siblings,
+    COUNT(student_id) AS No_of_Students
+FROM (
+    SELECT 
+        student_id,
+        COUNT(sibling_id) AS No_of_Siblings
+    FROM 
+        sibling
+    GROUP BY 
+        student_id
+)
+GROUP BY 
+    No_of_Siblings
+ORDER BY 
+    No_of_Siblings;
