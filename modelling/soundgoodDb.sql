@@ -137,10 +137,10 @@ ALTER TABLE rental ADD CONSTRAINT PK_rental PRIMARY KEY (id);
 
 CREATE TABLE sibling (
  student_id INT NOT NULL,
- sibling_id INT NOT NULL
+ sibling_id INT
 );
 
-ALTER TABLE sibling ADD CONSTRAINT PK_sibling PRIMARY KEY (student_id,sibling_id);
+ALTER TABLE sibling ADD CONSTRAINT PK_sibling PRIMARY KEY (student_id);
 
 
 ALTER TABLE contact_person ADD CONSTRAINT FK_contact_person_0 FOREIGN KEY (person_id) REFERENCES person (id);

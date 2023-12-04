@@ -101,3 +101,10 @@ INSERT INTO rental (instrument_id, start_date, end_date, monthly_fee, student_id
 	VALUES
 	((SELECT id from instrument where brand='fenderbender' AND model='nleg8'), '2022-01-24', '2023-01-24', '500', (SELECT id from student WHERE student_id='760059'), '1'),
 	((SELECT id from instrument where brand='jamal' AND model='123ad'), '2023-01-24', '2024-01-24', '200', (SELECT id from student WHERE student_id='760059'), '0');
+
+INSERT INTO sibling (student_id, sibling_id)
+VALUES
+    ((SELECT id from student WHERE person_id=3), NULL),
+    ((SELECT id from student WHERE person_id=5), NULL),
+    ((SELECT id from student WHERE person_id=9), (SELECT id from student WHERE person_id=10)),
+    ((SELECT id from student WHERE person_id=10), (SELECT id from student WHERE person_id=9));
