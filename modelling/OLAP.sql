@@ -30,7 +30,7 @@ SELECT
     END AS "No of Free Seats"
 FROM 
     lesson
-WHERE 
+WHERE
     time_slot >= CURRENT_DATE AND time_slot <= CURRENT_DATE + INTERVAL '1 week' AND type_of_lesson=3
 GROUP BY 
     Day, Genre, maximum, seats_taken
